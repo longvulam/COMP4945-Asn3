@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using comp4945_asn3.Data;
 using comp4945_asn3.Models;
@@ -22,7 +21,7 @@ namespace comp4945_asn3.Controllers
         // GET: Books
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Book.ToListAsync());
+            return View(await _context.Books.ToListAsync());
         }
 
         // GET: Books/Details/5
@@ -33,7 +32,7 @@ namespace comp4945_asn3.Controllers
                 return NotFound();
             }
 
-            var book = await _context.Book
+            var book = await _context.Books
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (book == null)
             {
@@ -73,7 +72,7 @@ namespace comp4945_asn3.Controllers
                 return NotFound();
             }
 
-            var book = await _context.Book.FindAsync(id);
+            var book = await _context.Books.FindAsync(id);
             if (book == null)
             {
                 return NotFound();
@@ -124,7 +123,7 @@ namespace comp4945_asn3.Controllers
                 return NotFound();
             }
 
-            var book = await _context.Book
+            var book = await _context.Books
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (book == null)
             {
@@ -139,15 +138,15 @@ namespace comp4945_asn3.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var book = await _context.Book.FindAsync(id);
-            _context.Book.Remove(book);
+            var book = await _context.Books.FindAsync(id);
+            _context.Books.Remove(book);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool BookExists(int id)
         {
-            return _context.Book.Any(e => e.Id == id);
+            return _context.Books.Any(e => e.Id == id);
         }
     }
 }

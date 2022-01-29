@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using comp4945_asn3.Data;
 using comp4945_asn3.Models;
@@ -22,7 +21,7 @@ namespace comp4945_asn3.Controllers
         // GET: Rentals
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Rental.ToListAsync());
+            return View(await _context.Rentals.ToListAsync());
         }
 
         // GET: Rentals/Details/5
@@ -33,7 +32,7 @@ namespace comp4945_asn3.Controllers
                 return NotFound();
             }
 
-            var rental = await _context.Rental
+            var rental = await _context.Rentals
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (rental == null)
             {
@@ -73,7 +72,7 @@ namespace comp4945_asn3.Controllers
                 return NotFound();
             }
 
-            var rental = await _context.Rental.FindAsync(id);
+            var rental = await _context.Rentals.FindAsync(id);
             if (rental == null)
             {
                 return NotFound();
@@ -124,7 +123,7 @@ namespace comp4945_asn3.Controllers
                 return NotFound();
             }
 
-            var rental = await _context.Rental
+            var rental = await _context.Rentals
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (rental == null)
             {
@@ -139,15 +138,15 @@ namespace comp4945_asn3.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var rental = await _context.Rental.FindAsync(id);
-            _context.Rental.Remove(rental);
+            var rental = await _context.Rentals.FindAsync(id);
+            _context.Rentals.Remove(rental);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool RentalExists(int id)
         {
-            return _context.Rental.Any(e => e.Id == id);
+            return _context.Rentals.Any(e => e.Id == id);
         }
     }
 }
