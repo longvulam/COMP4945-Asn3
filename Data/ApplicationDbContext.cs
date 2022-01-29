@@ -17,5 +17,7 @@ namespace comp4945_asn3.Data
         public DbSet<Customer> Customer { get; set; }
 
         public DbSet<Book> Book { get; set; }
+
+        public DbSet<comp4945_asn3.Models.Rental> Rental { get; set; }
     }
 }
